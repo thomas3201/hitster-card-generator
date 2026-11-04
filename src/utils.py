@@ -83,7 +83,7 @@ DEFAULT_DESIGN_SETTINGS = {
     "qr_bg_offset_x": 0.0,
     "qr_bg_offset_y": 0.0,
     
-    "qr_background_mode": "transparent", # "transparent" or "solid"
+    "qr_background_mode": "solid", # "transparent" or "solid"
     "qr_background_color": (0, 0, 0), # solid backplate color
     "qr_module_color": (255, 255, 255),
     "qr_quiet_zone": 2, 
@@ -93,14 +93,14 @@ DEFAULT_DESIGN_SETTINGS = {
     
     "neon_ring_opacity": 1.0,
     "neon_ring_thickness": 12,
-    "neon_ring_count": 8,
+    "neon_ring_count": 12,
     
-    "qr_title": "",
-    "qr_title_enabled": False,
-    "qr_title_pos": "top", # "top", "bottom", "center_above_qr", "center_below_qr"
+    "qr_title": "KTM² Hitster Family Edition",
+    "qr_title_enabled": True,
+    "qr_title_pos": "bottom", # "top", "bottom", "center_above_qr", "center_below_qr"
     "qr_title_size": 80,
-    "qr_title_color": (255, 255, 255),
-    "qr_title_bg": False,
+    "qr_title_color": (255, 95, 31),
+    "qr_title_bg": True,
 
     # Solution Side Settings
     "sol_bg_type": "gradient", # "gradient", "image"
@@ -1016,9 +1016,14 @@ def fetch_no_api_data_from_list(urls, progress_bar=None):
             title = title_tag['content']
             desc = desc_tag['content']
             artist = desc.split(" · ")[0]
+            desc = desc[-4:]
+            if desc.isnumeric() == False:
+                desc = None
+            else:
+                desc = int(desc)
             
             # FIX: correct argument order — (title, artist, fallback)
-            year, year_source = get_year_and_source(title, artist, None)
+            year, year_source = get_year_and_source(title, artist, desc)
             
             song = {
                 'name': sanitize_name(title),

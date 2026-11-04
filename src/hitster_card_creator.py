@@ -96,7 +96,7 @@ def generate_hitster_cards(db, playlist_url=None, client_id=None, client_secret=
         
         qr_code = utils.create_qr_code(song['link'])
         utils.create_qr_with_neon_rings(qr_code, qr_path)
-        utils.create_solution_side(song['name'], song['artist'], song['year'], release_years, sol_path, card_label=card_label)
+        utils.create_solution_side(song['name'], song['artist'], song['year'], release_years, sol_path)
         if (i + 1) % 20 == 0:
             print(f"  Progress: {i+1}/{len(songs)}...")
 
